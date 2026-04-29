@@ -129,7 +129,7 @@ function gradeExam(){
   questions.forEach((q,idx)=>{const ans=answers[q.id]; if(ans===q.correct) correctCount++; else mistakes.push({num:idx+1, stem:q.stem, your:ans||"לא נבחרה תשובה", correct:q.correct})});
   document.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','incorrect'));
   questions.forEach(q=>{document.querySelectorAll(`input[name="${q.id}"]`).forEach(input=>{const lab=input.closest('.choice'); if(input.value===q.correct) lab.classList.add('correct'); if(input.checked && input.value!==q.correct) lab.classList.add('incorrect')})});
-  const score = Math.round((correctCount/questions.length)*100);
+const score = correctCount;
   const box=document.getElementById('scoreBox'); box.style.display='block';
   box.innerHTML=`<div class="score">הציון: ${score} | תשובות נכונות: ${correctCount}/${questions.length}</div>` + (mistakes.length?`<h3>השגיאות שלך:</h3>${mistakes.map(m=>`<div class="mistake"><b>שאלה ${m.num}:</b> ${m.stem}<br><b>התשובה שלך:</b> ${m.your}<br><b>התשובה הנכונה:</b> ${m.correct}</div>`).join('')}`:`<p><b>כל הכבוד! אין שגיאות.</b></p>`);
   localStorage.setItem('nameNumberScore', score); return {score, correctCount, mistakes};
